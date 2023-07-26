@@ -17,13 +17,6 @@ BLECharacteristic *pTemperatureCharacteristic;
 
 bool deviceConnected = false;
 
-// 4524248a-2ba4-11ee-be56-0242ac120002
-// 45242b06-2ba4-11ee-be56-0242ac120002
-// 45242e3a-2ba4-11ee-be56-0242ac120002
-// 4524301a-2ba4-11ee-be56-0242ac120002
-// 452431c8-2ba4-11ee-be56-0242ac120002
-// 452433b2-2ba4-11ee-be56-0242ac120002
-
 // BLE Service UUID
 #define SERVICE_UUID "4524248a-2ba4-11ee-be56-0242ac120002"
 
@@ -58,8 +51,6 @@ void setup(void) {
 
   setup_sensor();
   read_offset();
-
-
 }
 
 void loop(void) {
@@ -72,6 +63,11 @@ void loop(void) {
     characteristicNotify(pConductivityCharacteristic, con_arr);
     characteristicNotify(pMoistureCharacteristic, moi_arr);
     characteristicNotify(pTemperatureCharacteristic, tem_arr);
+    delay(1000);
+  }
+  else{
+    pServer->getAdvertising()->start();
+    Serial.println("Waiting for connections...");
     delay(1000);
   } 
 }
@@ -131,4 +127,3 @@ void BLEServerInit()
   pServer->getAdvertising()->start();
   Serial.println("Waiting for connections...");
 }
-
